@@ -1,6 +1,7 @@
 const startButton = document.getElementById("start-button");
 const menu = document.getElementById("menu");
-const gun = Gun({ peers: [] }); // Disable default relay server
+const gun = Gun({ peers: [], localStorage: true }); // Local-only mode
+
 
 startButton.addEventListener("click", () => {
   menu.style.display = "none";
@@ -8,28 +9,27 @@ startButton.addEventListener("click", () => {
 });
 
 function initializeGame() {
-  // Gun.js setup
-  const gun = Gun();
-  let playerWorld;
-
-  // Check for existing worlds or create a new one
-  gun.get("worlds").once((data) => {
-    if (data) {
-      const existingWorlds = Object.keys(data).filter((key) => key !== "_");
-      if (existingWorlds.length > 0) {
-        playerWorld = existingWorlds[0];
-        console.log(`Joining world: ${playerWorld}`);
-        start3DGame(playerWorld);
-        return;
+    let playerWorld;
+  
+    // Check for existing worlds or create a new one
+    gun.get("worlds").once((data) => {
+      if (data) {
+        const existingWorlds = Object.keys(data).filter((key) => key !== "_");
+        if (existingWorlds.length > 0) {
+          playerWorld = existingWorlds[0];
+          console.log(`Joining world: ${playerWorld}`);
+          start3DGame(playerWorld);
+          return;
+        }
       }
-    }
-
-    playerWorld = `world-${Date.now()}`;
-    console.log(`Creating world: ${playerWorld}`);
-    gun.get("worlds").get(playerWorld).put({ created: true });
-    start3DGame(playerWorld);
-  });
-}
+  
+      playerWorld = `world-${Date.now()}`;
+      console.log(`Creating world: ${playerWorld}`);
+      gun.get("worlds").get(playerWorld).put({ created: true });
+      start3DGame(playerWorld);
+    });
+  }
+  
 
 function start3DGame(worldName) {
   console.log(`Starting 3D game in world: ${worldName}`);
