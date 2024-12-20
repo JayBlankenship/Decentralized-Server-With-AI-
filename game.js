@@ -2,8 +2,8 @@ const startButton = document.getElementById("start-button");
 const menu = document.getElementById("menu");
 const gun = Gun({ peers: [], localStorage: true }); // Local-only mode
 
-// Confirm Three.js is loaded
-console.log("Three.js version:", THREE.REVISION);
+// Check if Three.js is loaded
+console.log("Three.js version:", THREE?.REVISION);
 
 startButton.addEventListener("click", () => {
   menu.style.display = "none";
@@ -38,10 +38,10 @@ function start3DGame(worldName) {
   // Set up Three.js scene
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(
-    75, // Field of view
-    window.innerWidth / window.innerHeight, // Aspect ratio
-    0.1, // Near clipping plane
-    1000 // Far clipping plane
+    75,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000
   );
 
   const renderer = new THREE.WebGLRenderer();
