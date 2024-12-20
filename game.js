@@ -1,5 +1,6 @@
 const startButton = document.getElementById("start-button");
 const menu = document.getElementById("menu");
+const gun = Gun({ peers: [] }); // Disable default relay server
 
 startButton.addEventListener("click", () => {
   menu.style.display = "none";
