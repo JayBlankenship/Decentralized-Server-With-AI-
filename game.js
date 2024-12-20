@@ -2,6 +2,7 @@ const startButton = document.getElementById("start-button");
 const menu = document.getElementById("menu");
 const gun = Gun({ peers: [], localStorage: true }); // Local-only mode
 
+console.log("Three.js version:", THREE.REVISION);
 
 startButton.addEventListener("click", () => {
   menu.style.display = "none";
